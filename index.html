@@ -12,6 +12,7 @@
       justify-content: center;
       padding: 30px;
     }
+
     .wrapper {
       background: white;
       padding: 25px;
@@ -19,8 +20,21 @@
       max-width: 460px;
       width: 100%;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      border: 8px solid #cc0000;
+
+      /* Candy-cane striped border */
+      border: 10px solid transparent;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          #cc0000 0,
+          #cc0000 12px,
+          white 12px,
+          white 24px
+        );
+      background-origin: border-box;
+      background-clip: content-box, border-box;
     }
+
     h1 {
       text-align: center;
       margin-bottom: 6px;
@@ -72,7 +86,7 @@
 
   <h1>
     Guess How Many<br>
-    <span class="title-line2">Candy Canes are in Each Jar</span>
+    <span class="title-line2">Candy Canes & Hershey Kisses are in Each Jar</span>
   </h1>
 
   <div class="subtitle">Number closest to the actual amount wins the Jar</div>
