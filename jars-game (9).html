@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess How Many Candy Canes are in Each Jar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: system-ui;
+      background: #eef2ff;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    /* Holiday Border */
+    .wrapper {
+      background: white;
+      padding: 25px;
+      border-radius: 18px;
+      max-width: 460px;
+      width: 100%;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      border: 8px solid #cc0000; /* Holiday red border */
+    }
+
+    /* Red Two-Line Title */
+    h1 {
+      text-align: center;
+      margin-bottom: 6px;
+      font-size: 1.4rem;
+      color: #cc0000;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+    .title-line2 {
+      display: block;
+      font-size: 1.35rem;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 12px;
+      display: block;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    /* Submit Button: Red with White Lettering */
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      background: #cc0000;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 20px;
+      background: #ecfdf5;
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <h1>
+    Guess How Many
+    <span class="title-line2">Candy Canes are in Each Jar</span>
+  </h1>
+
+  <div class="subtitle">Number closest to the actual amount wins the Jar</div>
+
+  <label>Your Name:</label>
+  <input type="text" id="playerName" placeholder="Enter your name">
+
+  <label>JAR #1</label>
+  <select id="jar1"></select>
+
+  <label>JAR #2</label>
+  <select id="jar2"></select>
+
+  <label>JAR #3</label>
+  <select id="jar3"></select>
+
+  <label>JAR #4</label>
+  <select id="jar4"></select>
+
+  <button id="submitBtn">Submit</button>
+
+  <div id="status" class="status">Thank you for your submission! Good Luck!</div>
+</div>
+
+<script>
+  const jarIds = ["jar1", "jar2", "jar3", "jar4"];
+
+  function populateDropdowns() {
+    jarIds.forEach(id => {
+      const sel = document.getElementById(id);
+      for (let i = 1; i <= 400; i++) {
+        const o = document.createElement("option");
+        o.value = i;
+        o.textContent = i;
+        sel.appendChild(o);
+      }
+    });
+  }
+
+  function submitEntry() {
+    const name = document.getElementById("playerName").value.trim();
+    if (!name) {
+      alert("Please enter your name.");
+      return;
+    }
+
+    const entry = {
+      name,
+      jar1: jar1.value,
+      jar2: jar2.value,
+      jar3: jar3.value,
+      jar4: jar4.value,
+      time: new Date().toLocaleString()
+    };
+
+    const stored = JSON.parse(localStorage.getItem("jarEntries") || "[]");
+    stored.push(entry);
+    localStorage.setItem("jarEntries", JSON.stringify(stored));
+
+    document.getElementById("status").style.display = "block";
+    document.getElementById("playerName").value = "";
+  }
+
+  document.getElementById("submitBtn").addEventListener("click", submitEntry);
+
+  populateDropdowns();
+</script>
+
+</body>
+</html>
