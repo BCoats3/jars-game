@@ -34,13 +34,22 @@
       margin: 0 0 6px;
       font-size: 1.4rem;
       color: #cc0000;
-      line-height: 1.2;
+      line-height: 1.25;
       font-weight: 800;
     }
 
-    .title-line2 {
+    .title-line2,
+    .title-line3 {
       display: block;
+    }
+
+    .title-line2 {
       font-size: 1.35rem;
+    }
+
+    .title-line3 {
+      font-size: 1.15rem;
+      margin-top: 4px;
     }
 
     .subtitle {
@@ -58,12 +67,6 @@
       display: block;
       font-size: 0.9rem;
       color: #111827;
-    }
-
-    .hint {
-      font-size: 0.75rem;
-      color: #6b7280;
-      margin-top: 2px;
     }
 
     select,
@@ -115,8 +118,15 @@
         padding: 20px 16px 24px;
         border-width: 3px;
       }
-      h1 { font-size: 1.25rem; }
-      .title-line2 { font-size: 1.2rem; }
+      h1 {
+        font-size: 1.25rem;
+      }
+      .title-line2 {
+        font-size: 1.2rem;
+      }
+      .title-line3 {
+        font-size: 1.05rem;
+      }
     }
   </style>
 </head>
@@ -126,7 +136,8 @@
 
   <h1>
     Guess How Many<br>
-    <span class="title-line2">Candy Canes &amp; Hershey Kisses are in Each Jar</span>
+    <span class="title-line2">Candy Canes & Hershey Kisses</span>
+    <span class="title-line3">are in Each Jar</span>
   </h1>
 
   <div class="subtitle">Number closest to the actual amount wins the jar</div>
@@ -149,8 +160,6 @@
 
     <label for="jar4">JAR #4</label>
     <select id="jar4" name="jar4" required></select>
-
-    <p class="hint">Tip: Each jar can be the same or a different number.</p>
 
     <button type="submit">Submit Your Guesses</button>
   </form>
@@ -184,4 +193,4 @@
 </script>
 
 </body>
-</html>
+</html>  
