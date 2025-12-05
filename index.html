@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Guess How Many Candy Canes are in Each Jar</title>
+  <title>Guess How Many Candy Canes & Hershey Kisses are in Each Jar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
@@ -57,6 +57,7 @@
       margin-top: 6px;
       border-radius: 8px;
       border: 1px solid #ccc;
+      box-sizing: border-box;
     }
 
     /* Submit Button: Red with White Lettering */
@@ -79,7 +80,7 @@
       background: #ecfdf5;
       padding: 10px;
       border-radius: 10px;
-      display: none;
+      display: none; /* no longer used, but kept if you want to wire it later */
     }
   </style>
 </head>
@@ -94,23 +95,31 @@
 
   <div class="subtitle">Number closest to the actual amount wins the Jar</div>
 
-  <label>Your Name:</label>
-  <input type="text" id="playerName" placeholder="Enter your name">
+  <!-- FORM THAT POSTS TO GETFORM -->
+  <form
+    id="guessForm"
+    action="https://getform.io/f/awnvgdeb"
+    method="POST"
+  >
+    <label>Your Name:</label>
+    <input type="text" name="name" id="playerName" placeholder="Enter your name" required>
 
-  <label>JAR #1</label>
-  <select id="jar1"></select>
+    <label>JAR #1</label>
+    <select id="jar1" name="jar1" required></select>
 
-  <label>JAR #2</label>
-  <select id="jar2"></select>
+    <label>JAR #2</label>
+    <select id="jar2" name="jar2" required></select>
 
-  <label>JAR #3</label>
-  <select id="jar3"></select>
+    <label>JAR #3</label>
+    <select id="jar3" name="jar3" required></select>
 
-  <label>JAR #4</label>
-  <select id="jar4"></select>
+    <label>JAR #4</label>
+    <select id="jar4" name="jar4" required></select>
 
-  <button id="submitBtn">Submit</button>
+    <button type="submit">Submit</button>
+  </form>
 
+  <!-- Optional status div if you later add JS-based messaging -->
   <div id="status" class="status">Thank you for your submission! Good Luck!</div>
 </div>
 
@@ -120,6 +129,7 @@
   function populateDropdowns() {
     jarIds.forEach(id => {
       const sel = document.getElementById(id);
+      sel.innerHTML = "";
       for (let i = 1; i <= 400; i++) {
         const o = document.createElement("option");
         o.value = i;
@@ -129,33 +139,7 @@
     });
   }
 
-  function submitEntry() {
-    const name = document.getElementById("playerName").value.trim();
-    if (!name) {
-      alert("Please enter your name.");
-      return;
-    }
-
-    const entry = {
-      name,
-      jar1: jar1.value,
-      jar2: jar2.value,
-      jar3: jar3.value,
-      jar4: jar4.value,
-      time: new Date().toLocaleString()
-    };
-
-    const stored = JSON.parse(localStorage.getItem("jarEntries") || "[]");
-    stored.push(entry);
-    localStorage.setItem("jarEntries", JSON.stringify(stored));
-
-    document.getElementById("status").style.display = "block";
-    document.getElementById("playerName").value = "";
-  }
-
-  document.getElementById("submitBtn").addEventListener("click", submitEntry);
-
-  populateDropdowns();
+  document.addEventListener("DOMContentLoaded", populateDropdowns);
 </script>
 
 </body>
