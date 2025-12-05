@@ -5,68 +5,86 @@
   <title>Guess How Many Candy Canes & Hershey Kisses are in Each Jar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
+    * { box-sizing: border-box; }
+
     body {
-      font-family: system-ui;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #eef2ff;
       display: flex;
       justify-content: center;
-      padding: 30px;
+      align-items: flex-start;
+      padding: 30px 16px;
+      margin: 0;
     }
 
     .wrapper {
       background: white;
-      padding: 25px;
+      padding: 25px 22px 28px;
       border-radius: 18px;
       max-width: 460px;
       width: 100%;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 
-      /* Candy-cane striped border */
-      border: 10px solid transparent;
-      background-image:
-        repeating-linear-gradient(
-          45deg,
-          #cc0000 0,
-          #cc0000 12px,
-          white 12px,
-          white 24px
-        );
-      background-origin: border-box;
-      background-clip: content-box, border-box;
+      /* simple red border */
+      border: 4px solid #cc0000;
     }
 
     h1 {
       text-align: center;
-      margin-bottom: 6px;
+      margin: 0 0 6px;
       font-size: 1.4rem;
       color: #cc0000;
       line-height: 1.2;
       font-weight: 800;
     }
+
     .title-line2 {
       display: block;
       font-size: 1.35rem;
     }
+
     .subtitle {
       text-align: center;
       color: #6b7280;
       font-size: 0.9rem;
       margin-bottom: 18px;
     }
+
+    form { margin-top: 6px; }
+
     label {
       font-weight: 600;
       margin-top: 12px;
       display: block;
+      font-size: 0.9rem;
+      color: #111827;
     }
-    select, input {
+
+    .hint {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 2px;
+    }
+
+    select,
+    input[type="text"] {
       width: 100%;
-      padding: 8px;
+      padding: 9px 10px;
       margin-top: 6px;
       border-radius: 8px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
+      border: 1px solid #d1d5db;
+      font-size: 0.95rem;
+      background-color: #fff;
     }
-    button {
+
+    select:focus,
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #cc0000;
+      box-shadow: 0 0 0 2px rgba(204, 0, 0, 0.15);
+    }
+
+    button[type="submit"] {
       width: 100%;
       padding: 12px;
       margin-top: 20px;
@@ -77,6 +95,28 @@
       font-weight: 700;
       font-size: 1rem;
       cursor: pointer;
+      transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.1s ease;
+      box-shadow: 0 4px 10px rgba(204, 0, 0, 0.35);
+    }
+
+    button[type="submit"]:hover {
+      opacity: 0.96;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(204, 0, 0, 0.4);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+      box-shadow: 0 3px 8px rgba(204, 0, 0, 0.35);
+    }
+
+    @media (max-width: 480px) {
+      .wrapper {
+        padding: 20px 16px 24px;
+        border-width: 3px;
+      }
+      h1 { font-size: 1.25rem; }
+      .title-line2 { font-size: 1.2rem; }
     }
   </style>
 </head>
@@ -86,31 +126,33 @@
 
   <h1>
     Guess How Many<br>
-    <span class="title-line2">Candy Canes & Hershey Kisses are in Each Jar</span>
+    <span class="title-line2">Candy Canes &amp; Hershey Kisses are in Each Jar</span>
   </h1>
 
-  <div class="subtitle">Number closest to the actual amount wins the Jar</div>
+  <div class="subtitle">Number closest to the actual amount wins the jar</div>
 
   <form id="guessForm"
         action="https://getform.io/f/awnvgdeb"
         method="POST"
   >
-    <label>Your Name:</label>
+    <label for="playerName">Your Name</label>
     <input type="text" name="name" id="playerName" placeholder="Enter your name" required>
 
-    <label>JAR #1</label>
+    <label for="jar1">JAR #1</label>
     <select id="jar1" name="jar1" required></select>
 
-    <label>JAR #2</label>
+    <label for="jar2">JAR #2</label>
     <select id="jar2" name="jar2" required></select>
 
-    <label>JAR #3</label>
+    <label for="jar3">JAR #3</label>
     <select id="jar3" name="jar3" required></select>
 
-    <label>JAR #4</label>
+    <label for="jar4">JAR #4</label>
     <select id="jar4" name="jar4" required></select>
 
-    <button type="submit">Submit</button>
+    <p class="hint">Tip: Each jar can be the same or a different number.</p>
+
+    <button type="submit">Submit Your Guesses</button>
   </form>
 
 </div>
@@ -121,6 +163,14 @@
   function populateDropdowns() {
     jarIds.forEach(id => {
       const sel = document.getElementById(id);
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = "Select a number";
+      placeholder.disabled = true;
+      placeholder.selected = true;
+      sel.appendChild(placeholder);
+
       for (let i = 1; i <= 400; i++) {
         const o = document.createElement("option");
         o.value = i;
