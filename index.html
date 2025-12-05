@@ -12,8 +12,6 @@
       justify-content: center;
       padding: 30px;
     }
-
-    /* Holiday Border */
     .wrapper {
       background: white;
       padding: 25px;
@@ -21,10 +19,8 @@
       max-width: 460px;
       width: 100%;
       box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      border: 8px solid #cc0000; /* Holiday red border */
+      border: 8px solid #cc0000;
     }
-
-    /* Red Two-Line Title */
     h1 {
       text-align: center;
       margin-bottom: 6px;
@@ -37,20 +33,17 @@
       display: block;
       font-size: 1.35rem;
     }
-
     .subtitle {
       text-align: center;
       color: #6b7280;
       font-size: 0.9rem;
       margin-bottom: 18px;
     }
-
     label {
       font-weight: 600;
       margin-top: 12px;
       display: block;
     }
-
     select, input {
       width: 100%;
       padding: 8px;
@@ -59,8 +52,6 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
-
-    /* Submit Button: Red with White Lettering */
     button {
       width: 100%;
       padding: 12px;
@@ -73,15 +64,6 @@
       font-size: 1rem;
       cursor: pointer;
     }
-
-    .status {
-      text-align: center;
-      margin-top: 20px;
-      background: #ecfdf5;
-      padding: 10px;
-      border-radius: 10px;
-      display: none; /* no longer used, but kept if you want to wire it later */
-    }
   </style>
 </head>
 <body>
@@ -89,17 +71,15 @@
 <div class="wrapper">
 
   <h1>
-    Guess How Many
+    Guess How Many<br>
     <span class="title-line2">Candy Canes are in Each Jar</span>
   </h1>
 
   <div class="subtitle">Number closest to the actual amount wins the Jar</div>
 
-  <!-- FORM THAT POSTS TO GETFORM -->
-  <form
-    id="guessForm"
-    action="https://getform.io/f/awnvgdeb"
-    method="POST"
+  <form id="guessForm"
+        action="https://getform.io/f/awnvgdeb"
+        method="POST"
   >
     <label>Your Name:</label>
     <input type="text" name="name" id="playerName" placeholder="Enter your name" required>
@@ -119,8 +99,6 @@
     <button type="submit">Submit</button>
   </form>
 
-  <!-- Optional status div if you later add JS-based messaging -->
-  <div id="status" class="status">Thank you for your submission! Good Luck!</div>
 </div>
 
 <script>
@@ -129,7 +107,6 @@
   function populateDropdowns() {
     jarIds.forEach(id => {
       const sel = document.getElementById(id);
-      sel.innerHTML = "";
       for (let i = 1; i <= 400; i++) {
         const o = document.createElement("option");
         o.value = i;
